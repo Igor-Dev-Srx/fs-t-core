@@ -1088,33 +1088,42 @@
         );
       }
     };
-  var yt = (
-      {
-        values: t,
-        textNode: e,
-        filterData: {
-          originalFilterKeys: r,
-          mode: n,
-          tagFormat: o,
-          tagCategory: s,
-        },
-      },
-      i
-    ) => {
-      let l = s || r.join(", "),
-        a;
-      n === "range"
-        ? (a = `from ${t.map((c) => c || "--").join(" to ")}`)
-        : ([a] = t);
-      let m;
-      a === "true"
-        ? (m = l)
-        : (o || i) === "category"
-        ? (m = `${l}: ${a}`)
-        : (m = a),
-        (e.textContent = m);
-    },
-    le = (t) => !!h("tagRemove", { operator: "prefixed", scope: t });
+var yt = ({
+  values: t,
+  textNode: e,
+  filterData: {
+    originalFilterKeys: r,
+    mode: n,
+    tagFormat: o,
+    tagCategory: s
+  }
+}, i) => {
+
+  var lang = (document.documentElement.lang || "en").toLowerCase().substring(0, 2);
+
+  var dict = {
+    ru: { from: "от ", to: " до " },
+    ar: { from: "من ", to: " إلى " },
+    en: { from: "from ", to: " to " }
+  };
+
+  var w = dict[lang] || dict.en;
+
+  let l = s || r.join(", "),
+      a;
+
+  n === "range" 
+    ? (a = `${w.from}${t.map((c) => c || "--").join(w.to)}`) 
+    : ([a] = t);
+
+  let m;
+  a === "true" 
+    ? (m = l) 
+    : (o || i) === "category" 
+    ? (m = `${l}: ${a}`) 
+    : (m = a),
+    (e.textContent = m);
+};
   var it = class {
     constructor(e, r, n, o) {
       this.template = e;
