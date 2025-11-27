@@ -1104,7 +1104,7 @@
       let l = s || r.join(", "),
         a;
       n === "range"
-        ? (a = `[${t.map((c) => c || "--").join(" to ")}]`)
+        ? (a = `from ${t.map((c) => c || "--").join(" to ")}`)
         : ([a] = t);
       let m;
       a === "true"
